@@ -414,7 +414,12 @@ footer {
 		padding-top: 10px;
 	}
 
-	.main-buttons button{
-		margin: 10px;
+	.main-buttons{
+        text-align: center;
+        padding: 5%;
 	}
+
+    .section-container {
+        padding: 30px 10px;
+    }
 }
