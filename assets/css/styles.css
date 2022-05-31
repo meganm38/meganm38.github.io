@@ -389,6 +389,7 @@ footer {
 
     h3 {
         font-size: 0.8rem;
+        line-height: 1.5;
     }
 
     p {
@@ -409,5 +410,10 @@ footer {
     .wizard-icon {
         margin-top: 10px;
     }
+
+    .col-sm-10 {
+        padding-top: 10px;
+    }
+
 }
 
