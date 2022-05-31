@@ -336,6 +336,8 @@ ul {
 footer {
     margin-top: 100px;
     margin-bottom: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
     font-size: 10px;
     text-align: center;
 }
@@ -373,6 +375,39 @@ footer {
 
     .col-10{
         padding-left: 5%;
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    h3 {
+        font-size: 0.8rem;
+    }
+
+    p {
+        font-size: 0.5rem;
+    }
+
+    .database-container {
+        margin-top: 30px;
+        padding: 1px;
+    }
+    
+    .database {
+        margin: 10px;
+        padding: 20px;
+       
+    }
+
+    .wizard-icon {
+        margin-top: 10px;
     }
 }
 

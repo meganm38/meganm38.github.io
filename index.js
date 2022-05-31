@@ -57,6 +57,25 @@ function resizeMidButtons() {
     }
 }
 
+function resizeIcons() {
+    let width = $(window).width();
+
+    if (width < 576) {
+        $(".large-icon").addClass("fa-2x");
+        $(".large-icon").removeClass("fa-4x");
+    
+        $(".mid-icon").addClass("fa-1x");
+        $(".mid-icon").removeClass("fa-2x");
+    } else {
+        $(".large-icon").removeClass("fa-2x");
+        $(".large-icon").addClass("fa-4x");
+
+        $(".mid-icon").removeClass("fa-1x");
+        $(".mid-icon").addClass("fa-2x");
+    }
+    
+}
+
 function generateRandomQuestion() {
     const questionsNum = randomQuestions.length;
     questionIndex = Math.floor(Math.random() * questionsNum);
@@ -65,9 +84,11 @@ function generateRandomQuestion() {
 
 $(window).on("resize", resizeLargeButtons);
 $(window).on("resize", resizeMidButtons);
+$(window).on("resize", resizeIcons);
 
 resizeLargeButtons();
 resizeMidButtons();
+resizeIcons();
 generateRandomQuestion();
 
 
