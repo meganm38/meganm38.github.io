@@ -1,21 +1,15 @@
 const large_buttons = document.querySelectorAll(".kbc-button-lg");
 const mid_buttons = document.querySelectorAll(".kbc-button-md");
-
-const randomQuestions = [
-    "How many cats do I have?",
-    "What is my luky number?",
-    "My birth month?",
-    "How many countries have I visited?"
-]
-
-const answers = [
-    "3",
-    "2",
-    "3",
-    "7"
-]
-let questionIndex = -1;
 let answerSubmitted = false;
+
+let randomQandAs = new Map(
+    [
+        ["How many cats do I have?", "3"],
+        ["What is my lucky number?", "2"],
+        [ "My birth month?", "3"],
+        ["How many countries have I visited?", "7"]
+    ]
+);
 
 function resizeLargeButtons() {
 
@@ -77,10 +71,12 @@ function resizeIcons() {
 }
 
 function generateRandomQuestion() {
-    const questionsNum = randomQuestions.length;
-    questionIndex = Math.floor(Math.random() * questionsNum);
-    $(".question").text(randomQuestions[questionIndex]);
+    const questionsNum = randomQandAs.size;
+    let questionIndex = Math.floor(Math.random() * questionsNum);
+    $(".question").text(Array.from(randomQandAs.keys())[questionIndex]);
 }
+
+
 
 $(window).on("resize", resizeLargeButtons);
 $(window).on("resize", resizeMidButtons);
@@ -101,7 +97,8 @@ $(".key").click(function (e) {
 
     if (pressed === "enter") {
         answerSubmitted = true;
-        if ($(".answer").text() === answers[questionIndex]) {
+        let question = $(".question").text();
+        if ($(".answer").text() === randomQandAs.get(question)) {
             $(".answer").text("YOU GUESSED IT! 🥰");
         } else {
             $(".answer").text("NOPE NOPE. 🤪");

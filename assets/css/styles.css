@@ -134,7 +134,7 @@ p {
 
 h1 {
 	text-align: center;
-	margin: 10% auto;
+	margin: 5% auto;
 	background: var(--text-gradient-yellow);
 	-webkit-background-clip: text;
 	background-clip: none;
