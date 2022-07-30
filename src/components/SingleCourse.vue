@@ -7,12 +7,12 @@
         <div class="course-content">
 
             <div class="course-meta">
-                <span class="grade">Grade {{ grade }}/100</span>
+                <span class="grade">Grade {{ course.grade }}/100</span>
                 <span class="dot"></span>
-                <time>{{ time }}</time>
+                <time>{{ course.time }}</time>
             </div>
 
-            <h3 class="h3 course-title"> {{ courseTitle }}</h3>
+            <h3 class="h3 course-title"> {{ course.title }}</h3>
             <p class="course-text">
             {{ shortText }}
             </p>
@@ -25,10 +25,10 @@
 <script>
 import { computed } from '@vue/runtime-core'
 export default {
-    props: ["courseTitle", "contentText", "time", "grade"],
+    props: ["course"],
     setup(props) {
         const shortText = computed(() => {
-            return props.contentText.substring(0, 200) + " ..."
+          return props.course.contentText.substring(0, 200) + " ..."
         })
         return { shortText }
     }

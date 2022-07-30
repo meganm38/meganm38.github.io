@@ -6,8 +6,8 @@
 
       <section class="courses">
 
-        <div class="courses-list">
-          
+        <div class="courses-list" v-for="course in courses" :key="course.title">
+          <SingleCourse :course="course"/>
         </div>
       </section>
 
@@ -15,11 +15,13 @@
 </template>
 
 <script>
-import SingleCourseVue from '@/components/SingleCourse.vue'
-import SingleCourse from '@/components/SingleCourse.vue'
+import courses from '../db/courses.json'
+import SingleCourse from '../components/SingleCourse.vue'
 export default {
-    components: [SingleCourseVue],
-    components: { SingleCourse }
+    components: { SingleCourse },
+    setup() {
+      return { courses }
+    }
 }
 </script>
 
