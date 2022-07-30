@@ -1,30 +1,51 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+	<div class="main">
+		<SideIntroduction />
+		<div class="main-content">
+			<NavBar />
+			<router-view/>
+		</div>
+	</div>
 </template>
 
+<script>
+import SideIntroduction from "../src/components/SideIntroduction.vue"
+import Navbar from "../src/components/NavBar.vue"
+import NavBar from "../src/components/NavBar.vue"
+
+export default {
+  components: { SideIntroduction, Navbar, NavBar }
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+  .main {
+    max-width: 1200px;
+    margin-inline: auto;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 25px;
+    padding: 80px 30px;
+  }
+  .main-content {
+    min-width: 75%;
+    width: 75%;
+    margin: 0;
+  }
 
-nav {
-  padding: 30px;
-}
+  @media (max-width: 1024px) {
+    .main{
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    .main-content {
+      margin: auto;
+    }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+    SideIntroduction {
+      margin: auto;
+    }
+  }
 
-nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
