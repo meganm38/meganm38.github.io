@@ -1,25 +1,25 @@
 <template>
-    <article class="contact active" data-page="contact">
+    <article class="contact active">
     <header>
         <h2 class="h2 article-title">Contact Form</h2>
     </header>
     <section class="contact-form">
 
-        <form @submit.prevent="handleSendMessage" class="form" data-form>
+        <form @submit.prevent="handleSendMessage" class="form">
 
         <div class="input-wrapper">
-            <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input v-model="fullName">
+            <input type="text" name="fullname" class="form-input" placeholder="Full name" required v-model="fullName">
 
-            <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input v-model="email">
+            <input type="email" name="email" class="form-input" placeholder="Email address" required v-model="email">
         </div>
 
-        <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input v-model="message"></textarea>
+        <textarea name="message" class="form-input" placeholder="Your Message" required v-model="message"></textarea>
 
-        <button class="form-btn" type="submit" data-form-btn>
+        <button class="form-btn" type="submit" :class="{disabled: pending}">
             <font-awesome-icon icon="fa-solid fa-paper-plane" />
-            <span>Send Message</span>
+            <span ref="sendBtn">Send Message</span>
         </button>
-
+        <span class="response" v-if="response">{{ response }}</span>
         </form>
 
     </section>
@@ -29,18 +29,40 @@
 
 <script>
 import { ref } from 'vue'
-
+import emailjs from '@emailjs/browser'
 export default {
     setup() {
         const fullName = ref('')
         const email = ref('')
         const message = ref('')
+        const sendBtn = ref(null)
+        const pending = ref(false)
+        const response = ref('')
 
-        const handleSendMessage = () => {
-
+        emailjs.init("7fnxL-HlMUcrNcKjQ")
+        const handleSendMessage = async () => {
+          const templateParams = {
+            from_name: fullName.value,
+            from_address: email.value,
+            message: message.value
+          }
+          try {
+            response.value = ''
+            sendBtn.value.innerHTML = "Sending"
+            pending.value = true
+            await emailjs.send("service_plzygl6", "template_7rgehhp", templateParams)
+            pending.value = false
+            sendBtn.value.innerHTML = "Send Message"
+            fullName.value = ''
+            email.value = ''
+            message.value = ''
+            response.value = "I have received your message. Thank you for reaching out!"
+          } catch (e) {
+            response.value = "Server error. Sorry, please email me at menghanma@gmail.com ;)"
+          }
         }
 
-        return { fullName, email, message, handleSendMessage }
+        return { fullName, email, message, handleSendMessage, sendBtn, pending, response }
     }
 }
 </script>
@@ -119,14 +141,19 @@ textarea.form-input::-webkit-resizer { display: none; }
 
 .form-btn:hover::before { background: var(--bg-gradient-yellow-2); }
 
-.form-btn:disabled {
+.form-btn.disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
 
-.form-btn:disabled:hover { background: var(--border-gradient-onyx); }
+.form-btn.disabled:hover { background: var(--border-gradient-onyx); }
 
-.form-btn:disabled:hover::before { background: var(--bg-gradient-jet); }
+.form-btn.disabled:hover::before { background: var(--bg-gradient-jet); }
+
+.response {
+  color: white;
+  margin-top: 16px;
+}
 
 </style>>
 

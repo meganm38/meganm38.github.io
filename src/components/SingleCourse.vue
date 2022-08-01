@@ -1,10 +1,6 @@
 <template>
     <div class="single-course">
-        
-        <figure class="course-banner-box">
-        </figure>
-
-        <div class="course-content">
+        <div class="course-content" >
 
             <div class="course-meta">
                 <span class="grade">Grade {{ course.grade }}/100</span>
@@ -12,26 +8,16 @@
                 <time>{{ course.time }}</time>
             </div>
 
-            <h3 class="h3 course-title"> {{ course.title }}</h3>
-            <p class="course-text">
-            {{ shortText }}
-            </p>
-
+            <h3 class="h3 course-title"> {{ course.name }} - {{ course.description }}</h3>
         </div>
 
     </div>
 </template>
 
 <script>
-import { computed } from '@vue/runtime-core'
 export default {
     props: ["course"],
-    setup(props) {
-        const shortText = computed(() => {
-          return props.course.contentText.substring(0, 200) + " ..."
-        })
-        return { shortText }
-    }
+    
 }
 </script>
 
@@ -39,11 +25,12 @@ export default {
 .single-course {
   position: relative;
   background: var(--border-gradient-onyx);
-  height: 100%;
+  height: fit-content;
   box-shadow: var(--shadow-4);
   border-radius: 16px;
   z-index: 1;
   margin-bottom: 30px;
+  animation: scaleUp 0.25s ease forwards;
 }
 
 .single-course::before {
@@ -71,7 +58,10 @@ export default {
 
 .single-course:hover .blog-banner-box img { transform: scale(1.1); }
 
-.course-content { padding: 15px; }
+.course-content { 
+  padding: 15px; 
+  cursor: pointer;  
+}
 
 .course-meta {
   display: flex;
@@ -83,7 +73,7 @@ export default {
 
 .course-meta :is(.blog-category, time, .grade) {
   color: var(--light-gray-70);
-  font-size: var(--fs-6);
+  font-size: var(--fs-7);
   font-weight: var(--fw-300);
 }
 
@@ -104,8 +94,13 @@ export default {
 
 .course-text {
   color: var(--light-gray);
-  font-size: var(--fs-6);
+  font-size: var(--fs-7);
   font-weight: var(--fw-300);
   line-height: 1.6;
+  word-break: break-all;
+}
+
+h3 {
+    font-size: var(--fs-4);
 }
 </style>

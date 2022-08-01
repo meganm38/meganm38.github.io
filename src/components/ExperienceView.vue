@@ -5,17 +5,25 @@
         </div>
 
         <div class="service-content-box">
-            <h4 class="h4 service-item-title">{{ title }}</h4>
+            <h4 class="h4 service-item-title">{{ experience.title }}</h4>
             <p class="service-item-text">
-                {{ description }}
+                {{ experience.description }}
             </p>
         </div>
     </div>
 </template>
 
 <script>
+import { computed } from '@vue/runtime-core'
 export default {
-    props:["title", "description", "imgPath"]
+    props:["experience"],
+    setup(props) {
+      const imgPath = computed(() => {
+        return require("@/assets/" + props.experience.icon + ".svg")
+      })
+
+      return { imgPath }
+    }
 }
 </script>
 
@@ -40,7 +48,11 @@ export default {
 
 .service-icon-box { margin-bottom: 10px; }
 
-.service-icon-box img { margin: auto; }
+.service-icon-box img {
+  margin: auto; 
+  width: 40px;
+  height: 32px;  
+}
 
 .service-content-box { text-align: center; }
 

@@ -1,93 +1,140 @@
 <template>
-  <article class="portfolio active" data-page="portfolio">
+  <div class="projects">
+    <article class="portfolio active">
 
-        <header>
-          <h2 class="h2 article-title">Projects</h2>
-        </header>
+  <header>
+    <h2 class="h2 article-title">Portfolio</h2>
+  </header>
 
-        <section class="projects">
+  <section class="projects">
+    <div class="filter-list">
+      <button class="filter-item" @click="filterChanged('All')" :class="[{ activeFilter:  'All' === filterSelected}]">All</button>
+      <div v-for="tag in tags" :key="tag">
+          <button class="filter-item" 
+            @click="filterChanged(tag)" 
+            :class="[{ activeFilter:  tag === filterSelected}]">
+            {{ tag }}
+          </button>
+      </div>
+    </div>
 
-          <ul class="filter-list">
+    <div class="filter-select-box">
+      <button class="filter-select" :class="{active: dropDownActive}" @click="toggleDropDown">
+       <span ref="filterLanguage">Select language</span><font-awesome-icon icon="fa-solid fa-chevron-down" />
+      </button>
+      <div class="select-list">
+        <div class="select-item">
+          <button @click="toggleDropDown(); filterChanged('All'); changeFilterLanguage('All')">All</button>
+        </div>
+      <div v-for="tag in tags" :key="tag" class="select-item">
+          <button 
+            @click="filterChanged(tag); toggleDropDown(); changeFilterLanguage(tag)" 
+            :class="[{ activeFilter:  tag === filterSelected}]">
+            {{ tag }}
+          </button>
+      </div>
 
-            <li class="filter-item">
-              <button class="active" data-filter-btn>All</button>
-            </li>
+      </div>
 
-            <li class="filter-item">
-              <button data-filter-btn>Web design</button>
-            </li>
+        </div>
 
-            <li class="filter-item">
-              <button data-filter-btn>Applications</button>
-            </li>
+    <div class="project-list" v-for="project in filteredProjects" :key="project.name">
+      <div class="child"><SingleProjectVue :project="project"/></div>
+    </div>
+  </section>
 
-            <li class="filter-item">
-              <button data-filter-btn>Web development</button>
-            </li>
-
-          </ul>
-
-          <div class="filter-select-box">
-
-            <button class="filter-select" data-select>
-
-              <div class="select-value" data-selecct-value>Select category</div>
-
-              <div class="select-icon">
-                <ion-icon name="chevron-down"></ion-icon>
-              </div>
-
-            </button>
-
-            <ul class="select-list">
-
-              <li class="select-item">
-                <button data-select-item>All</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Web design</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Applications</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Web development</button>
-              </li>
-
-            </ul>
-
-          </div>
-
-          <ul class="project-list">
-
-            
-          </ul>
-
-        </section>
-
-      </article>
+  </article>
+  </div>
 </template>
 
 <script>
-export default {
+import projects from "@/db/projects.json"
+import SingleProjectVue from "@/components/SingleProject.vue"
+import SingleProject from "../components/SingleProject.vue"
+import { computed } from '@vue/runtime-core'
+import { ref } from "vue"
 
+export default {
+  components: { SingleProjectVue, SingleProject },
+  setup() {
+  const tags = computed(() => {
+    let set = new Set()
+    projects.forEach(project => {
+    project.tags.forEach(tag => set.add(tag))
+    });
+    return [...set]
+  })
+
+
+  const filterSelected = ref("All")
+  const filteredProjects  = computed(() => {
+    if (filterSelected.value === "All") {
+      return projects
+    } else {
+      return projects.filter((project) => {
+        return project.tags.includes(filterSelected.value)
+    })
+    }
+  })
+
+  const filterChanged = (filter) => {
+    filterSelected.value = filter
+  }
+
+  const dropDownActive = ref(false)
+
+  const toggleDropDown = () => {
+    dropDownActive.value = !dropDownActive.value
+  }
+
+  const filterLanguage = ref(null)
+
+  const changeFilterLanguage = (filter) => {
+    filterLanguage.value.innerHTML = filter
+  }
+  return { projects, tags, filterSelected, filterChanged, filteredProjects, dropDownActive, toggleDropDown, filterLanguage, changeFilterLanguage }
+  }
 }
 </script>
 
 <style>
-.portfolio .article-title { 
-  margin-top: 80px;
-}
+  .portfolio .article-title { 
+    margin-top: 80px;
+  }
 
-.filter-list { display: none; }
+  .portfolio {
+    width: 100%;
+    overflow: hidden;
+  }
 
-.filter-select-box {
-  position: relative;
-  margin-bottom: 25px;
-}
+  .filter-list {
+    display: flex;
+    gap: 25px;
+    padding-left: 5px;
+    margin-bottom: 30px;
+  }
+
+  .filter-item {
+    color: var(--light-gray);
+    font-size: var(--fs-5);
+    transition: var(--transition-1);
+  }
+
+  .project-list {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+  .activeFilter {
+    color: var(--orange-yellow-crayola);
+  }
+
+  .filter-select-box {
+    display: none;
+    position: relative;
+    margin-bottom: 25px;
+  }
 
 .filter-select {
   background: var(--eerie-black-2);
@@ -102,8 +149,6 @@ export default {
   font-size: var(--fs-6);
   font-weight: var(--fw-300);
 }
-
-.filter-select.active .select-icon { transform: rotate(0.5turn); }
 
 .select-list {
   background: var(--eerie-black-2);
@@ -126,6 +171,12 @@ export default {
   pointer-events: all;
 }
 
+.filter-select.active + .select-list {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
 .select-item button {
   background: var(--eerie-black-2);
   color: var(--light-gray);
@@ -139,10 +190,13 @@ export default {
 
 .select-item button:hover { --eerie-black-2: hsl(240, 2%, 20%); }
 
-.project-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 30px;
-  margin-bottom: 10px;
+@media (max-width: 450px) {
+  .filter-list {
+    display: none;
+  }
+
+  .filter-select-box {
+    display: block;
+  }
 }
 </style>

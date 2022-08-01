@@ -11,7 +11,7 @@
           </li>
 
           <li class="navbar-item">
-            <router-link :to="{ name: 'Projects'}" active-class="active">Projects</router-link>
+            <router-link :to="{ name: 'Projects'}" active-class="active">Portfolio</router-link>
           </li>
 
           <li class="navbar-item">
@@ -56,7 +56,7 @@ export default {
 .navbar a {
   --fs-8: 14px; 
 	color: var(--light-gray);
-	font-size: var(--fs-8);
+	font-size: var(--fs-5);
 	padding: 20px 7px;
 	transition: color var(--transition-1);
 }
@@ -65,6 +65,20 @@ export default {
 .navbar a:focus,
 .navbar a.active {
   color: var(--orange-yellow-crayola);
+}
+
+@media (max-width: 450px) {
+  .navbar a {
+	font-size: var(--fs-7);
+  }
+
+  .navbar {
+    padding: 0 10px;
+  }
+
+  .navbar-list {
+    gap: 10px;
+  }
 }
 
 </style>

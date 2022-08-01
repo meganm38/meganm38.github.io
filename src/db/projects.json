@@ -1,0 +1,30 @@
+[   
+    {
+        "name": "FitnessBlockchain",
+        "tags": [
+            "Solidity", "Swift"
+        ],
+        "link": "#"
+    },
+    {
+        "name": "SimCity",
+        "tags": [
+            "Java"
+        ],
+        "link": "https://github.com/meganm38/CityRevolution"
+    },
+    {
+        "name": "Muso",
+        "tags": [
+            "Vue", "js", "html", "css"
+        ],
+        "link": "https://github.com/meganm38/Muso"
+    },
+    {
+        "name": "EveryoneDao",
+        "tags": [
+            "Solidity"
+        ],
+        "link": "https://github.com/meganm38/571G_proj"
+    }
+]

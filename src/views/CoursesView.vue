@@ -1,13 +1,14 @@
 <template>
   <article class="courses active" data-page="courses">
       <header>
-        <h2 class="h2 article-title">Relevant Courses</h2>
+        <h2 class="h2 article-title">Relevant Coursework</h2>
       </header>
 
       <section class="courses">
-
-        <div class="courses-list" v-for="course in courses" :key="course.title">
-          <SingleCourse :course="course"/>
+        <div class="courses-list" v-for="course in courses" :key="course.name">
+          <router-link :to="{ name: 'CourseDetails', params: {name: course.name.replaceAll(' ', '-')}}">
+            <SingleCourse :course="course"/>
+          </router-link>
         </div>
       </section>
 
@@ -30,8 +31,5 @@ export default {
   margin-top: 80px;
 }
 .courses { margin-bottom: 10px; }
-
-
-
 
 </style>

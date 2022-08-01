@@ -1,44 +1,44 @@
 [
     {
-        "title": "EECE 571G",
+        "name": "EECE 571G",
+        "description": "Blockchain Software Engineering",
         "grade": 100,
-        "contentText": "lalalalalalalalalalalalalalalalalalalal",
         "time": "Jan 2022 to April 2022"
     },
     {
-        "title": "CPSC 210",
+        "name": "CPSC 210",
+        "description": "Software Construction",
         "grade": 97,
-        "contentText": "lalalalalalalalalalalalalalalalalalalal",
         "time": "Jan 2022 to April 2022"
     },
     {
-        "title": "EECE 571T",
+        "name": "EECE 571T",
+        "description": "Advanced Machine Learning Techniques",
         "grade": 89,
-        "contentText": "lalalalalalalalalalalalalalalalalalalal",
         "time": "Jan 2022 to April 2022"
     },
     {
-        "title": "CPSC 221",
+        "name": "CPSC 221",
+        "description": "Basic Algorithms and Data Structures",
         "grade": 89,
-        "contentText": "lalalalalalalalalalalalalalalalalalalal",
         "time": "Jan 2022 to April 2022"
     },
     {
-        "title": "CPEN 502",
+        "name": "CPEN 502",
+        "description": "Architecture for Learning Systems",
         "grade": 94,
-        "contentText": "lalalalalalalalalalalalalalalalalalalal",
         "time": "Jan 2022 to April 2022"
     },
     {
-        "title": "EECE 571",
+        "name": "EECE 571B",
+        "description": "Foundation of BlockChain",
         "grade": 95,
-        "contentText": "lalalalalalalalalalalalalalalalalalalal",
         "time": "Jan 2022 to April 2022"
     },
     {
-        "title": "CPSC 121",
+        "name": "CPSC 121",
+        "description": "Models of Comuputation",
         "grade": 89,
-        "contentText": "lalalalalalalalalalalalalalalalalalalal",
         "time": "Jan 2022 to April 2022"
     }
 ]

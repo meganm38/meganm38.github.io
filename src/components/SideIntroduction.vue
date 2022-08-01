@@ -9,9 +9,13 @@
 				<h1 class="name">Megan Ma</h1>
 				<p class="title">Software Engineering Student</p>
 			</div>
+
+			<button class="info_more-btn" @click="toggleShowContacts">
+				<span>Show Contacts</span>
+       		 </button>
 		</div>
 
-		<div class="sidebar-info_more">
+		<div class="sidebar-info_more" :class="[{ active: showContacts}]">
 			<div class="separator"></div>
 
 			<ul class="contacts-list">
@@ -102,8 +106,29 @@
 </template>
 
 <script>
-export default {
+import { ref, watch } from 'vue'
+import useWindowResize from '@/useWindowResize'
 
+export default {
+	setup() {
+		const showContacts = ref(true)
+		const { width } = useWindowResize()
+		const showContactsBtnActive = ref(false)
+
+		watch(width, () => {
+			if (width.value < 1024 && !showContactsBtnActive.value) {
+				showContacts.value = false
+			} else {
+				showContacts.value = true
+			}
+		})
+
+		const toggleShowContacts = () => {
+			showContacts.value = !showContacts.value
+			showContactsBtnActive.value = !showContactsBtnActive.value
+		}
+		return  { toggleShowContacts, showContacts }
+	}
 }
 </script>
 
@@ -117,7 +142,7 @@ export default {
 		margin-bottom: 0;
 		z-index: 1;
 		padding: 40px;
-		min-width: 310px;
+		min-width: 350px;
 	}
 
 	.sidebar-info {
@@ -162,10 +187,14 @@ export default {
 		margin: auto;
 	}
 
+	.info_more-btn { display: none; }
+
+	.sidebar-info_more.active{
+    	display: block;
+	}
+
 	.sidebar-info_more {
-		opacity: 1;
-    	visibility: visible;
-		transition: var(--transition-2);
+    	display: none;
 	}
 
 	.contacts-list {
@@ -235,31 +264,71 @@ export default {
 		color: var(--light-gray);
 	}
 
-	 @media (max-width: 1024px) {
-		.sidebar-info_more {
-			display: none;
-			transition: var(--transition-2);
-		}
+	@media (max-width: 1024px) {
+
 		.sidebar {
-			height: min-content;
-			width: max-content;
+			padding: 0px;
+			height: 100%;
 		}
 		.sidebar-info {
-			justify-content: left;
-			align-items: left;
-			gap: 0px;
-			flex-direction: column;
+			gap: 15px;
+			display: grid;
+			grid-template-columns: 1fr 2fr;
+			padding: 0px;
 		}
 
 		.avatar-box {
 			margin-bottom: 10px;
 			width: 100px;
-			float: left;
 		}
 
 		.avatar-box img { 
 			width: 100%;
 			margin: auto;
 		}
+		
+		.info-content .name {
+			text-align: left;
+			margin-bottom: 15px;
+			font-size: var(--fs-1);
+		}
+
+		.info-content .title {
+			font-size: var(--fs-8);
+			width: max-content;
+			margin: 0;
+		}
+
+		.info_more-btn {
+			display: block;
+			position: absolute;
+			top: -20px;
+			right: -23px;
+			border-radius: 0 15px;
+			font-size: 13px;
+			color: var(--orange-yellow-crayola);
+			background: var(--border-gradient-onyx);
+			padding: 10px;
+			box-shadow: var(--shadow-2);
+			transition: var(--transition-1);
+			z-index: 1;
+		}
+
+		.info_more-btn::before {
+			content: "";
+			position: absolute;
+			inset: 1px;
+			border-radius: inherit;
+			background: var(--bg-gradient-jet);
+			transition: var(--transition-1);
+			z-index: -1;
+		}
+
+		.info_more-btn:hover,
+		.info_more-btn:focus { background: var(--bg-gradient-yellow-1); }
+
+		.info_more-btn:hover::before,
+		.info_more-btn:focus::before { background: var(--bg-gradient-yellow-2); }
+
 	}
 </style>

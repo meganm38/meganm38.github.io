@@ -29,8 +29,7 @@ export default {
     padding: 80px 30px;
   }
   .main-content {
-    min-width: 75%;
-    width: 75%;
+    width: 100%;
     margin: 0;
   }
 
@@ -38,6 +37,8 @@ export default {
     .main{
       display: grid;
       grid-template-columns: 1fr;
+      padding: 10px;
+      gap: 16px;
     }
     .main-content {
       margin: auto;
@@ -47,5 +48,4 @@ export default {
       margin: auto;
     }
   }
-
 </style>
